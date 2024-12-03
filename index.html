@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advent Calendar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 10px;
+            max-width: 400px;
+        }
+        .day {
+            width: 60px;
+            height: 60px;
+            background-color: #ffcc00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s;
+            overflow: hidden; /* Hide anything that overflows the circle */
+            position: relative;
+        }
+        .day.opened {
+            background-color: #4CAF50;
+            color: white;
+            transform: scale(1.1);
+        }
+        .day:hover {
+            background-color: #ff9900;
+        }
+        .day.opened:hover {
+            background-color: #4CAF50;
+        }
+        .day-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .content video {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 50%;
+        }
+        .content p {
+            font-size: 16px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar" id="calendar"></div>
+
+    <script>
+        // Function to create the advent calendar grid
+        function createCalendar() {
+            const calendarContainer = document.getElementById('calendar');
+            for (let i = 1; i <= 25; i++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('day');
+                dayDiv.setAttribute('data-day', i);
+
+                // Create a container to hold either the number or content
+                const dayContent = document.createElement('div');
+                dayContent.classList.add('day-content');
+                dayContent.innerHTML = i; // Display the number initially
+
+                dayDiv.appendChild(dayContent);
+
+                // Check if the day is already opened from localStorage
+                if (localStorage.getItem('day-' + i)) {
+                    dayDiv.classList.add('opened');
+                    displayContent(dayDiv, i); // Show content if already opened
+                }
+
+                // Add event listener to mark as opened and show content
+                dayDiv.addEventListener('click', function() {
+                    if (!dayDiv.classList.contains('opened')) {
+                        dayDiv.classList.add('opened');
+                        localStorage.setItem('day-' + i, 'opened');
+                    }
+                    displayContent(dayDiv, i); // Display content for the clicked day
+                });
+
+                calendarContainer.appendChild(dayDiv);
+            }
+        }
+
+        // Function to display content for the opened day
+        function displayContent(dayDiv, day) {
+            const dayContent = dayDiv.querySelector('.day-content');
+            let content;
+
+            // Example placeholders for content
+            if (day === 1) {
+                content = '<img src="./yukidaruma_7.gif" alt="Snowman - hpgpixer.jp">';
+            } else if (day === 2) {
+                content = '<p>🎄</p>';
+            } else if (day === 3) {
+                content = '<img src="./nightmare.webp" alt="Nightmare Before Christmas">';
+            } else if (day === 4) {
+                content = '<p>🎅</p>';
+            } else if (day === 5) {
+                content = '<img src="./santa_boy_2.gif" alt="Santa Boy - hpgpixer.jp">';
+            } else if (day === 6) {
+                content = '<p>🥶</p>';
+            } else if (day === 7) {
+                content = '<img src="./grinch.webp" alt="Grinch">';
+            } else if (day === 8) {
+                content = '<p>🐻‍❄️</p>';
+            } else if (day === 9) {
+                content = '<img src="./charliebrown.gif" alt="Charlie Brown Tree">';
+            } else if (day === 10) {
+                content = '<p>⛷️</p>';
+            } else if (day === 11) {
+                content = '<p>🏂</p>';
+            } else if (day === 12) {
+                content = '<p>🧊</p>';
+            } else if (day === 13) {
+                content = '<p>🏒</p>';
+            } else if (day === 14) {
+                content = '<p>⛸️</p>';
+            } else if (day === 15) {
+                content = '<p>🎿</p>';
+            } else if (day === 16) {
+                content = '<p>🛷</p>';
+            } else if (day === 17) {
+                content = '<p>🥌</p>';
+            } else if (day === 18) {
+                content = '<p>🧣</p>';
+            } else if (day === 19) {
+                content = '<p>🧤</p>';
+            } else if (day === 20) {
+                content = '<p>🎁</p>';
+            } else if (day === 21) {
+                content = '<p>🥾</p>';
+            } else if (day === 22) {
+                content = '<p>🐧</p>';
+            } else if (day === 23) {
+                content = '<p>❄️</p>';
+            } else if (day === 24) {
+                content = '<p>🔔</p>';
+            } else if (day === 25) {
+                content = '<video playsinline autoplay muted loop><source src="./alliwant.mp4" type="video/mp4"></video>';
+            }
+
+            // Set the content for the day
+            dayContent.innerHTML = content;
+        }
+
+        // Call createCalendar on page load
+        window.onload = createCalendar;
+    </script>
+</body>
+</html>
