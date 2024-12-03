@@ -59,10 +59,8 @@
             object-fit: cover;
             border-radius: 50%;
         }
-        .content video {
-            max-width: 100%;
+        .day-content video {
             max-height: 100%;
-            border-radius: 50%;
         }
         .content p {
             font-size: 16px;
@@ -178,11 +176,11 @@
             } else if (day === 22) {
                 content = '<p>🐧</p>';
             } else if (day === 23) {
-                content = '<p>❄️</p>';
+                content = '<video playsinline autoplay muted loop><source src="./alliwant.mp4" type="video/mp4"></video>';
             } else if (day === 24) {
                 content = '<p>🔔</p>';
             } else if (day === 25) {
-                content = '<video playsinline autoplay muted loop><source src="./alliwant.mp4" type="video/mp4"></video>';
+                content = '<video playsinline autoplay muted loop><source src="./linusandlucy.mp4" type="video/mp4"></video>';
             }
 
             // Set the content for the day
